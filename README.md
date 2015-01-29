@@ -1,7 +1,7 @@
 # AlignTextView
 字体对齐的textview
   
-![截图](./align-text-align.png)  
+![截图](./align-text-view.png)  
   
 ###系统要求
 Android 4.0以上
