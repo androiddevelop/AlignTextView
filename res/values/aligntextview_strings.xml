@@ -1,7 +1,0 @@
-<resources>
-
-    <string name="app_name">AlignTextView</string>
-    <string name="justify_text_view">JustifyTextView</string>
-    <string name="align_text_view">AlignTextView</string>
-
-</resources>
