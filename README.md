@@ -19,8 +19,9 @@ Android 4.0以上
   
   
 ### 使用说明
-AlignTextView在对齐的时候不会对英文单词等进行考虑，使其连在一起。
+-  AlignTextView在对齐的时候不会对英文单词等进行考虑，使其连在一起。
+-  项目位与app下，可以单独提取出cn.androiddevelop.aligntextview.lib.AlignTextView使用
 
 ### 更新历史
 ####1.1
-修正由于对齐造成textview函数减少，从而下方留出空白。
+修正由于对齐造成textview行数减少，从而下方留出空白。
