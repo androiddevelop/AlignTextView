@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <issue id="RtlHardcoded">
+        <ignore path="src/main/java/cn/androiddevelop/aligntextview/lib/Align.java" />
+    </issue>
+</lint>
