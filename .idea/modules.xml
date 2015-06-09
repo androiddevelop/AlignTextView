@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AlignTextView.iml" filepath="$PROJECT_DIR$/AlignTextView.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aligntextview-example/aligntextview-example.iml" filepath="$PROJECT_DIR$/aligntextview-example/aligntextview-example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aligntextview-library/aligntextview-library.iml" filepath="$PROJECT_DIR$/aligntextview-library/aligntextview-library.iml" />
     </modules>
   </component>
 </project>
