@@ -10,24 +10,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="de76f892-f65d-4ed5-8509-e5fb4c0fe872" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/aligntextview-example/src/main/java/me/codeboy/android/example/AlignTextViewExample.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/align-text-view-small.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/align-text-view.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aligntextview-example/src/main/java/cn/androiddevelop/aligntextview/example/AlignTextViewExample.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aligntextview-example/src/main/java/test/NewTextView.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/aligntextview-library/src/main/java/cn/androiddevelop/aligntextview/lib/AlignTextView.java" afterPath="$PROJECT_DIR$/aligntextview-library/src/main/java/me/codeboy/android/lib/AlignTextView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aligntextview-example/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/aligntextview-example/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aligntextview-library/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/aligntextview-library/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aligntextview-example/src/main/res/layout/activity_align_text_view.xml" afterPath="$PROJECT_DIR$/aligntextview-example/src/main/res/layout/activity_align_text_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aligntextview-example/aligntextview-example.iml" afterPath="$PROJECT_DIR$/aligntextview-example/aligntextview-example.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aligntextview-example/build.gradle" afterPath="$PROJECT_DIR$/aligntextview-example/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aligntextview-example/src/main/res/values/color.xml" afterPath="$PROJECT_DIR$/aligntextview-example/src/main/res/values/color.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aligntextview-example/src/main/res/values/dimen.xml" afterPath="$PROJECT_DIR$/aligntextview-example/src/main/res/values/dimen.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aligntextview-example/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/aligntextview-example/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="de76f892-f65d-4ed5-8509-e5fb4c0fe872" name="Default" comment="" />
     <ignored path="AlignTextView.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/build/classes/" />
@@ -2805,7 +2788,13 @@
       <option name="project" value="LOCAL" />
       <updated>1433177964793</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="加入CBAlignTextView">
+      <created>1435805121084</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1435805121084</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2886,7 +2875,8 @@
     <MESSAGE value="1 项目从eclipse迁移到android studio&#10;2 修正文字过多底部留下很多空白bug" />
     <MESSAGE value="1 调整gitignore" />
     <MESSAGE value="修正README" />
-    <option name="LAST_COMMIT_MESSAGE" value="修正README" />
+    <MESSAGE value="加入CBAlignTextView" />
+    <option name="LAST_COMMIT_MESSAGE" value="加入CBAlignTextView" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3046,6 +3036,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="31" column="6" selection-start-line="19" selection-start-column="0" selection-end-line="31" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3053,6 +3044,80 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="1468" column="43" selection-start-line="1468" selection-start-column="25" selection-end-line="1468" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#84539#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#10399#10400#0" expanded="false" />
+            <element signature="e#10449#10450#0" expanded="false" />
+            <element signature="e#11096#11097#0" expanded="false" />
+            <element signature="e#11146#11147#0" expanded="false" />
+            <element signature="e#11702#11703#0" expanded="false" />
+            <element signature="e#11752#11753#0" expanded="false" />
+            <element signature="e#12306#12307#0" expanded="false" />
+            <element signature="e#12356#12357#0" expanded="false" />
+            <element signature="e#12478#12479#0" expanded="false" />
+            <element signature="e#12501#12502#0" expanded="false" />
+            <element signature="e#16305#16306#0" expanded="false" />
+            <element signature="e#16338#16339#0" expanded="false" />
+            <element signature="e#17848#17849#0" expanded="false" />
+            <element signature="e#17906#17907#0" expanded="false" />
+            <element signature="e#18866#18867#0" expanded="false" />
+            <element signature="e#18920#18921#0" expanded="false" />
+            <element signature="e#19683#19684#0" expanded="false" />
+            <element signature="e#19742#19743#0" expanded="false" />
+            <element signature="e#20235#20236#0" expanded="false" />
+            <element signature="e#20296#20297#0" expanded="false" />
+            <element signature="e#20809#20810#0" expanded="false" />
+            <element signature="e#20871#20872#0" expanded="false" />
+            <element signature="e#21394#21395#0" expanded="false" />
+            <element signature="e#21458#21459#0" expanded="false" />
+            <element signature="e#21982#21983#0" expanded="false" />
+            <element signature="e#22044#22045#0" expanded="false" />
+            <element signature="e#22739#22740#0" expanded="false" />
+            <element signature="e#22800#22801#0" expanded="false" />
+            <element signature="e#23599#23600#0" expanded="false" />
+            <element signature="e#23664#23665#0" expanded="false" />
+            <element signature="e#23942#23943#0" expanded="false" />
+            <element signature="e#24004#24005#0" expanded="false" />
+            <element signature="e#27654#27655#0" expanded="false" />
+            <element signature="e#27721#27722#0" expanded="false" />
+            <element signature="e#27941#27942#0" expanded="false" />
+            <element signature="e#28005#28006#0" expanded="false" />
+            <element signature="e#28140#28141#0" expanded="false" />
+            <element signature="e#28209#28210#0" expanded="false" />
+            <element signature="e#28425#28426#0" expanded="false" />
+            <element signature="e#28491#28492#0" expanded="false" />
+            <element signature="e#29256#29257#0" expanded="false" />
+            <element signature="e#29286#29287#0" expanded="false" />
+            <element signature="e#30020#30021#0" expanded="false" />
+            <element signature="e#30055#30056#0" expanded="false" />
+            <element signature="e#30690#30691#0" expanded="false" />
+            <element signature="e#30722#30723#0" expanded="false" />
+            <element signature="e#31467#31468#0" expanded="false" />
+            <element signature="e#31501#31502#0" expanded="false" />
+            <element signature="e#32252#32253#0" expanded="false" />
+            <element signature="e#32286#32287#0" expanded="false" />
+            <element signature="e#33206#33207#0" expanded="false" />
+            <element signature="e#33238#33239#0" expanded="false" />
+            <element signature="e#34246#34247#0" expanded="false" />
+            <element signature="e#34280#34281#0" expanded="false" />
+            <element signature="e#35827#35828#0" expanded="false" />
+            <element signature="e#35869#35870#0" expanded="false" />
+            <element signature="e#36080#36081#0" expanded="false" />
+            <element signature="e#36136#36137#0" expanded="false" />
+            <element signature="e#36538#36539#0" expanded="false" />
+            <element signature="e#36607#36608#0" expanded="false" />
+            <element signature="e#37011#37012#0" expanded="false" />
+            <element signature="e#37077#37078#0" expanded="false" />
+            <element signature="e#37234#37235#0" expanded="false" />
+            <element signature="e#37264#37265#0" expanded="false" />
+            <element signature="e#41099#41100#0" expanded="false" />
+            <element signature="e#41159#41160#0" expanded="false" />
+            <element signature="e#41773#41774#0" expanded="false" />
+            <element signature="e#41816#41817#0" expanded="false" />
+            <element signature="e#46469#46470#0" expanded="false" />
+            <element signature="e#46512#46513#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
