@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="bg_white">#dddddd</color>
     <color name="red">#E51C23</color>
     <color name="red2">#F9BDBB</color>
     <color name="red3">#D2B48C</color>
@@ -8,4 +9,5 @@
     <color name="green3">#76EEC6</color>
     <color name="blue">#4876FF</color>
     <color name="blue2">#00BFFF</color>
+    <color name="blue3">#00BFFF</color>
 </resources>

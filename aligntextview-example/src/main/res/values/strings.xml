@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">AlignTextView</string>
+    <string name="text_view">TextView</string>
     <string name="justify_text_view">JustifyTextView</string>
     <string name="align_text_view">AlignTextView</string>
+    <string name="cb_align_text_view">CBAlignTextView</string>
 
 </resources>

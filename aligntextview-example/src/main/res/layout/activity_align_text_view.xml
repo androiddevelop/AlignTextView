@@ -1,65 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:lyd="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
 
-        <TextView
-            android:id="@+id/justifyTipsTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/red"
-            android:padding="@dimen/view_padding"
-            android:text="@string/justify_text_view"
-            android:textSize="@dimen/big_font"
-            android:textStyle="bold" >
-        </TextView>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
 
-        <me.biubiubiu.justifytext.library.JustifyTextView
-            android:id="@+id/justifyTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:textIsSelectable="true"
-            android:layout_below="@+id/justifyTipsTv"
-            android:background="@drawable/red_select"
-            android:padding="@dimen/view_padding"
-            android:textSize="@dimen/small_font" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/textviewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_white"
+                android:padding="@dimen/view_padding"
+                android:text="@string/text_view"
+                android:textSize="@dimen/big_font"
+                android:textStyle="bold">
+            </TextView>
 
-    <RelativeLayout
+            <TextView
+                android:id="@+id/textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/textviewTitle"
+                android:padding="@dimen/view_padding"
+                android:textColorHighlight="@android:color/holo_blue_dark"
+                android:textIsSelectable="true"
+                android:textSize="@dimen/small_font"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/justifyTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/blue"
+                android:padding="@dimen/view_padding"
+                android:text="@string/justify_text_view"
+                android:textSize="@dimen/big_font"
+                android:textStyle="bold">
+            </TextView>
+
+            <me.biubiubiu.justifytext.library.JustifyTextView
+                android:id="@+id/justifyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/justifyTitle"
+                android:background="@drawable/blue_select"
+                android:padding="@dimen/view_padding"
+                android:textIsSelectable="true"
+                android:textSize="@dimen/small_font"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
 
-        <TextView
-            android:id="@+id/alignTipsTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/green"
-            android:padding="@dimen/view_padding"
-            android:text="@string/align_text_view"
-            android:textSize="@dimen/big_font"
-            android:textStyle="bold" >
-        </TextView>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-        <test.NewTextView
-            android:id="@+id/alignTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:textIsSelectable="true"
-            android:textColorHighlight="@android:color/holo_blue_dark"
-            android:layout_below="@id/alignTipsTv"
-            android:background="@drawable/green_select"
-            android:padding="@dimen/view_padding"
-            android:textSize="@dimen/small_font" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/alignTextViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/red"
+                android:padding="@dimen/view_padding"
+                android:text="@string/align_text_view"
+                android:textSize="@dimen/big_font"
+                android:textStyle="bold">
+            </TextView>
 
+            <me.codeboy.android.lib.AlignTextView
+                android:id="@+id/alignTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/alignTextViewTitle"
+                android:background="@drawable/red_select"
+                android:padding="@dimen/view_padding"
+                android:textIsSelectable="true"
+                android:textSize="@dimen/small_font"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+
+            <TextView
+                android:id="@+id/cbAlignTextViewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/green"
+                android:padding="@dimen/view_padding"
+                android:text="@string/cb_align_text_view"
+                android:textSize="@dimen/big_font"
+                android:textStyle="bold">
+            </TextView>
+
+            <me.codeboy.android.lib.CBAlignTextView
+                android:id="@+id/cbAlignTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/cbAlignTextViewTitle"
+                android:background="@drawable/green_select"
+                android:padding="@dimen/view_padding2"
+                android:textColorHighlight="@android:color/holo_blue_dark"
+                android:textIsSelectable="true"
+                android:textSize="@dimen/small_font"/>
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
