@@ -7,6 +7,7 @@
 Android 4.0以上
 
 ## 快速使用
+
 **CBAlignTextView (新的版本，支持选择复制，排版效果也比较的好)**
 
     <me.codeboy.android.lib.CBAlignTextView
