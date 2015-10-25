@@ -8,9 +8,13 @@ Android 4.0以上
 
 ## 快速使用
 
+**build.gradle加入dependencies**
+
+    compile 'me.codeboy.android:align-text-view:2.0.2'
+
 **CBAlignTextView (新的版本，支持选择复制，排版效果也比较的好)**
 
-    <me.codeboy.android.lib.CBAlignTextView
+    <me.codeboy.android.aligntextview.CBAlignTextView
             android:id="@+id/cbAlignTv"
             android:textIsSelectable="true"
             android:layout_width="match_parent"
@@ -25,7 +29,7 @@ Android 4.0以上
 
 **AlignTextView (旧的版本，不支持选择复制，但是排版效果更好)**
 
-     <me.codeboy.android.lib.AlignTextView
+     <me.codeboy.android.aligntextview.AlignTextView
             android:id="@+id/alignTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -47,6 +51,9 @@ AlignTextView是旧的版本，不支持选择复制，但是可以自定义最�
 3.  demo项目位与app下，可以单独提取出me.codeboy.android.lib.AlignTextView和me.codeboy.android.lib.CBAlignTextView使用
 
 ## 更新历史
+
+###2.0.2
+1. 整合项目，加入仓库，直接引用使用即可
 
 ###2.0
 1. 加入CBAlignTextView,支持原生TextView的选择复制。
