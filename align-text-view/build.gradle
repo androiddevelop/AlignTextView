@@ -10,7 +10,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 3
-        versionName "2.0.1"
+        versionName "2.0.2"
     }
 
     buildTypes {
@@ -22,7 +22,7 @@ android {
 }
 
 
-version = "2.0.1.1"
+version = "2.0.2"
 def siteUrl = 'https://github.com/androiddevelop/AlignTextView'
 def gitUrl = 'https://github.com/androiddevelop/AlignTextView.git'
 group = "me.codeboy.android"
@@ -34,6 +34,7 @@ install {
             project {
                 packaging 'aar'
                 name 'align-text-view'
+                description 'Android Aligned Text View'
                 url siteUrl
                 licenses {
                     license {
@@ -43,7 +44,7 @@ install {
                 }
                 developers {
                     developer {
-                        id 'yuedong'
+                        id 'codeboy'
                         name 'yuedong'
                         email 'androiddevelop@qq.com'
                     }
@@ -64,7 +65,6 @@ task sourcesJar(type: Jar) {
 }
 
 task javadoc(type: Javadoc) {
-    options.encoding = 'UTF-8'
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 }
@@ -73,11 +73,11 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
-
 artifacts {
     archives javadocJar
     archives sourcesJar
 }
+
 
 
 Properties properties = new Properties()
@@ -95,18 +95,15 @@ bintray {
         publish = true
         version {
             gpg {
-                sign = true //Determines whether to GPG sign the files. The default is false
+                sign = true
                 passphrase = properties.getProperty("bintray.gpg.password")
-                //Optional. The passphrase for GPG signing'
             }
-//            mavenCentralSync {
-//                sync = true
-//                //Optional (true by default). Determines whether to sync the version to Maven Central.
-//                user = properties.getProperty("bintray.oss.user") //OSS user token
-//                password = properties.getProperty("bintray.oss.password") //OSS user password
-//                close = '1'
-//                //Optional property. By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
-//            }
+            mavenCentralSync {
+                sync = true
+                user = properties.getProperty("bintray.oss.user")
+                password = properties.getProperty("bintray.oss.password")
+                close = '1'
+            }
         }
     }
 }
