@@ -1,1 +1,1 @@
-include ':aligntextview-library', ':aligntextview-example'
+include ':align-text-view-example', 'align-text-view'

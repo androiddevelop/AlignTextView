@@ -1,4 +1,4 @@
-package me.codeboy.android.lib;
+package me.codeboy.android.aligntextview;
 
 import android.content.Context;
 import android.graphics.Canvas;

@@ -1,4 +1,4 @@
-<manifest package="cn.androiddevelop.aligntextview.example"
+<manifest package="me.codeboy.android.aligntextview.example"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
@@ -7,7 +7,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name="me.codeboy.android.example.AlignTextViewExample">
+            android:name=".AlignTextViewExample">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

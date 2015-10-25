@@ -93,7 +93,7 @@
                 android:textStyle="bold">
             </TextView>
 
-            <me.codeboy.android.lib.AlignTextView
+            <me.codeboy.android.aligntextview.AlignTextView
                 android:id="@+id/alignTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,6 +101,8 @@
                 android:layout_below="@+id/alignTextViewTitle"
                 android:background="@drawable/red_select"
                 android:padding="@dimen/view_padding"
+                android:ellipsize="marquee"
+                android:lineSpacingExtra="7dp"
                 android:textIsSelectable="true"
                 android:textSize="@dimen/small_font"/>
         </RelativeLayout>
@@ -122,7 +124,7 @@
                 android:textStyle="bold">
             </TextView>
 
-            <me.codeboy.android.lib.CBAlignTextView
+            <me.codeboy.android.aligntextview.CBAlignTextView
                 android:id="@+id/cbAlignTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

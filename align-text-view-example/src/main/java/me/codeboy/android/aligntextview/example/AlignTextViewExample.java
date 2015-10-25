@@ -1,7 +1,8 @@
-package me.codeboy.android.example;
+package me.codeboy.android.aligntextview.example;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -38,5 +39,7 @@ public class AlignTextViewExample extends Activity {
         justifyTv.setText(text);
         alignTv.setText(text);
         cbalignTv.setText(text);
+
+        alignTv.setMovementMethod(new ScrollingMovementMethod());
     }
 }
