@@ -102,7 +102,6 @@
                 android:background="@drawable/red_select"
                 android:padding="@dimen/view_padding"
                 android:ellipsize="marquee"
-                android:lineSpacingExtra="7dp"
                 android:textIsSelectable="true"
                 android:textSize="@dimen/small_font"/>
         </RelativeLayout>
@@ -131,7 +130,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_below="@id/cbAlignTextViewTitle"
                 android:background="@drawable/green_select"
-                android:padding="@dimen/view_padding2"
+                android:padding="@dimen/view_padding"
                 android:textColorHighlight="@android:color/holo_blue_dark"
                 android:textIsSelectable="true"
                 android:textSize="@dimen/small_font"/>
