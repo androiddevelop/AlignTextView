@@ -4,13 +4,13 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 3
-        versionName "2.0.2"
+        versionName "2.0.3"
     }
 
     buildTypes {
@@ -22,7 +22,7 @@ android {
 }
 
 
-version = "2.0.2"
+version = "2.0.3"
 def siteUrl = 'https://github.com/androiddevelop/AlignTextView'
 def gitUrl = 'https://github.com/androiddevelop/AlignTextView.git'
 group = "me.codeboy.android"
