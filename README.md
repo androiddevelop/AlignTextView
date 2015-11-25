@@ -53,8 +53,8 @@ AlignTextView是旧的版本，不支持选择复制，但是可以自定义最�
 ## 更新历史
 
 ###2.0.3
-1 优化`AlignTextView`的性能(计算每行的字数)
-2 修正`AlignTextView`的padding问题(注意:项目使用中获取的paddingBottom可能与自己设置的不同,若需要代码设置paddingBottom，请在getPaddingBottom的基础上进行添加或减少)
+1. 优化`AlignTextView`的性能(计算每行的字数)
+2. 修正`AlignTextView`的padding问题(注意:项目使用中获取的paddingBottom可能与自己设置的不同,若需要代码设置paddingBottom，请在getPaddingBottom的基础上进行添加或减少)
 
 ###2.0.2
 1. 整合项目，加入仓库，直接引用使用即可
