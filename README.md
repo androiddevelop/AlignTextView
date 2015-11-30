@@ -36,7 +36,7 @@ Android 4.0以上
 
 ## 相关方法
 
-### 1.CBAlignTextView
+#### 1.CBAlignTextView
 
 CBAlignTextView中增加了以下方法获取TextView的文本内容，请不要使用getText()获取
 
@@ -71,7 +71,7 @@ CBAlignTextView中增加了以下方法获取TextView的文本内容，请不要
         </LinearLayout>
 
 
-### 2.AlignTextView
+#### 2.AlignTextView
 AlignTextView是旧的版本，不支持选择复制，但是可以自定义最后一行的对齐方式
 
 	setAlign(Align align)
