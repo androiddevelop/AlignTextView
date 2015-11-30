@@ -2,13 +2,19 @@ package me.codeboy.android.aligntextview;
 
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Paint;
+import android.os.Build;
+import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
+import me.codeboy.android.aligntextview.util.CBAlignTextViewUtil;
 
 /**
  * 对齐的TextView
@@ -26,9 +32,12 @@ public class CBAlignTextView extends TextView {
     private CharSequence oldText = ""; //旧文本，本来应该显示的文本
     private CharSequence newText = ""; //新文本，真正显示的文本
     private boolean inProcess = false; //旧文本是否已经处理为新文本
+    private boolean isAddPadding = false; //是否添加过边距
+    private boolean isConvert = false; //是否转换标点符号
+    private boolean isAddListener = false; //是否添加监听器
     private static List<Character> punctuation = new ArrayList<Character>(); //标点符号
 
-    //标点符号用于在textview右侧多出空间时，将空间加到标点符号的后面
+    //标点符号用于在textview右侧多出空间时，将空间加到标点符号的后面,以便于右端对齐
     static {
         punctuation.clear();
         punctuation.add(',');
@@ -36,24 +45,32 @@ public class CBAlignTextView extends TextView {
         punctuation.add('?');
         punctuation.add('!');
         punctuation.add(';');
-        punctuation.add(')');
-        punctuation.add(']');
-        punctuation.add('}');
         punctuation.add('，');
         punctuation.add('。');
         punctuation.add('？');
         punctuation.add('！');
         punctuation.add('；');
         punctuation.add('）');
+        punctuation.add('】');
+        punctuation.add(')');
+        punctuation.add(']');
         punctuation.add('}');
     }
 
     public CBAlignTextView(Context context) {
         super(context);
+        addLayoutListener();
     }
 
     public CBAlignTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CBAlignTextView);
+
+        isConvert = ta.getBoolean(R.styleable.CBAlignTextView_punctuationConvert, false);
+
+        ta.recycle();
+        addLayoutListener();
     }
 
 
@@ -82,10 +99,16 @@ public class CBAlignTextView extends TextView {
                     getSelectTextMethod.setAccessible(true);
                     CharSequence selectedText = (CharSequence) getSelectTextMethod.invoke(this,
                             min, max);
-                    Method closeMenuMethod = cls.getDeclaredMethod("stopSelectionActionMode");
+                    copy(selectedText.toString());
+
+                    Method closeMenuMethod;
+                    if (Build.VERSION.SDK_INT < 23) {
+                        closeMenuMethod = cls.getDeclaredMethod("stopSelectionActionMode");
+                    } else {
+                        closeMenuMethod = cls.getDeclaredMethod("stopTextActionMode");
+                    }
                     closeMenuMethod.setAccessible(true);
                     closeMenuMethod.invoke(this);
-                    copy(selectedText.toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -124,7 +147,7 @@ public class CBAlignTextView extends TextView {
      *
      * @param paint 画笔
      * @param text  文本
-     * @param width 最大宽度
+     * @param width 最大可用宽度
      * @return 处理后的文本
      */
     private String processText(Paint paint, String text, int width) {
@@ -135,9 +158,11 @@ public class CBAlignTextView extends TextView {
         StringBuilder newText = new StringBuilder();
         for (String line : lines) {
             newText.append('\n');
-            newText.append(processLine(paint, line, width - getPaddingLeft() - getPaddingRight()));
+            newText.append(processLine(paint, line, width, newText.length() - 1));
         }
-        newText.deleteCharAt(0);
+        if (newText.length() > 0) {
+            newText.deleteCharAt(0);
+        }
         return newText.toString();
     }
 
@@ -145,15 +170,17 @@ public class CBAlignTextView extends TextView {
     /**
      * 处理单行文本
      *
-     * @param paint 画笔
-     * @param text  文本
-     * @param width 最大宽度
+     * @param paint                     画笔
+     * @param text                      文本
+     * @param width                     最大可用宽度
+     * @param addCharacterStartPosition 添加文本的起始位置
      * @return 处理后的文本
      */
-    private String processLine(Paint paint, String text, int width) {
+    private String processLine(Paint paint, String text, int width, int addCharacterStartPosition) {
         if (text == null || text.length() == 0) {
             return "";
         }
+
         StringBuilder old = new StringBuilder(text);
         int startPosition = 0; // 起始位置
 
@@ -166,10 +193,14 @@ public class CBAlignTextView extends TextView {
         //减少一个汉字宽度，保证每一行前后都有一个空格
         maxChineseCount--;
 
-        addCharPosition.clear();
+        //如果不能容纳汉字，直接返回空串
+        if (maxChineseCount <= 0) {
+            return "";
+        }
 
         for (int i = maxChineseCount; i < old.length(); i++) {
-            if (paint.measureText(old.substring(startPosition, i + 1)) > width - spaceWidth) {
+            if (paint.measureText(old.substring(startPosition, i + 1)) > (width - spaceWidth)) {
+
                 //右侧多余空隙宽度
                 float gap = (width - spaceWidth - paint.measureText(old.substring(startPosition,
                         i)));
@@ -194,7 +225,7 @@ public class CBAlignTextView extends TextView {
                         int position = positions.get(k / positions.size());
                         for (int m = 0; m < times; m++) {
                             old.insert(position + m, SPACE);
-                            addCharPosition.add(position + m);
+                            addCharPosition.add(position + m + addCharacterStartPosition);
                             use++;
                             number--;
                         }
@@ -204,10 +235,10 @@ public class CBAlignTextView extends TextView {
                 //指针移动，将段尾添加空格进行分行处理
                 i = i + use;
                 old.insert(i, SPACE);
-                addCharPosition.add(i);
+                addCharPosition.add(i + addCharacterStartPosition);
 
                 startPosition = i + 1;
-                i = startPosition + maxChineseCount;
+                i = i + maxChineseCount;
             }
         }
 
@@ -216,10 +247,18 @@ public class CBAlignTextView extends TextView {
 
     @Override
     public void setText(CharSequence text, BufferType type) {
-        if (!inProcess) {
+        if (!inProcess && (text != null && !text.equals(newText))) {
             oldText = text;
+            if (!isAddListener) {
+                addLayoutListener();
+            }
+            process(false);
+            super.setText(newText, type);
+        } else {
+            //恢复初始状态
+            inProcess = false;
+            super.setText(text, type);
         }
-        super.setText(text, type);
     }
 
     /**
@@ -231,24 +270,80 @@ public class CBAlignTextView extends TextView {
         return oldText;
     }
 
+    /**
+     * 文本转化
+     *
+     * @param setText 是否设置textView的文本
+     */
+    private void process(boolean setText) {
+        if (!inProcess && !TextUtils.isEmpty(oldText) && getVisibility() == VISIBLE) {
+            addCharPosition.clear();
+
+            //转化字符，5.0系统对字体处理有所变动
+            if (isConvert) {
+                oldText = CBAlignTextViewUtil.replacePunctuation(oldText.toString());
+            }
+
+            if (getWidth() == 0) {
+                return;
+            }
+
+            //添加过边距之后不再次添加
+            if (!isAddPadding) {
+                int spaceWidth = (int) (getPaint().measureText(SPACE + ""));
+                newText = processText(getPaint(), oldText.toString(), getWidth() - getPaddingLeft
+                        () -
+                        getPaddingRight() - spaceWidth);
+                setPadding(getPaddingLeft() + spaceWidth, getPaddingTop(), getPaddingRight(),
+                        getPaddingBottom());
+                isAddPadding = true;
+            } else {
+                newText = processText(getPaint(), oldText.toString(), getWidth() - getPaddingLeft
+                        () -
+                        getPaddingRight());
+            }
+            inProcess = true;
+            if (setText) {
+                setText(newText);
+            }
+        }
+    }
 
     /**
-     * TextView在绘制的时候会经过measure,layout,draw阶段，在measure阶段TextView的
-     * 宽度是不一定能获取到的，可能获取的是0，而在layout与draw阶段都可以获取到,windowFocus
-     * 在draw阶段之后，所以在此进行文本的转化，当然也可以在layout等阶段进行
-     *
-     * @param hasWindowFocus 是否获取窗口焦点
+     * 添加监听器，用于在布局进行改变时重新绘制文本
      */
-    @Override
-    public void onWindowFocusChanged(boolean hasWindowFocus) {
-        if (!inProcess && oldText != null && oldText.length() != 0) {
-            newText = processText(getPaint(), oldText.toString(), getWidth());
-            setText(newText);
-            int spaceWidth = (int) (getPaint().measureText(SPACE + ""));
-            setPadding(getPaddingLeft() + spaceWidth, getPaddingTop(), getPaddingRight(),
-                    getPaddingBottom());
-            inProcess = true;
-        }
-        super.onWindowFocusChanged(hasWindowFocus);
+    private void addLayoutListener() {
+
+        isAddListener = true;
+        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver
+                .OnGlobalLayoutListener() {
+
+
+            @Override
+            public void onGlobalLayout() {
+
+                if (getWidth() == 0) {
+                    return;
+                }
+
+                process(true);
+
+                if (Build.VERSION.SDK_INT >= 16) {
+                    getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                } else {
+                    getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                }
+                isAddListener = false;
+            }
+        });
+    }
+
+    /**
+     * 是否转化标点符号，将中文标点转化为英文标点
+     *
+     * @param convert 是否转化
+     */
+    public void setPunctuationConvert(boolean convert) {
+        isConvert = convert;
     }
 }
