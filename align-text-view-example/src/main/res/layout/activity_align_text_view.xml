@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:cb="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
@@ -103,6 +104,7 @@
                 android:padding="@dimen/view_padding"
                 android:ellipsize="marquee"
                 android:textIsSelectable="true"
+                cb:align="left"
                 android:textSize="@dimen/small_font"/>
         </RelativeLayout>
 
@@ -130,7 +132,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_below="@id/cbAlignTextViewTitle"
                 android:background="@drawable/green_select"
-                android:padding="@dimen/view_padding"
+                android:paddingTop="@dimen/view_padding"
+                cb:punctuationConvert="true"
                 android:textColorHighlight="@android:color/holo_blue_dark"
                 android:textIsSelectable="true"
                 android:textSize="@dimen/small_font"/>
