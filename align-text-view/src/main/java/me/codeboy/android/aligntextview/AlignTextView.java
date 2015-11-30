@@ -1,6 +1,7 @@
 package me.codeboy.android.aligntextview;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.text.Layout;
@@ -37,6 +38,23 @@ public class AlignTextView extends TextView {
     public AlignTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setTextIsSelectable(false);
+
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.AlignTextView);
+
+        int alignStyle = ta.getInt(R.styleable.AlignTextView_align, 0);
+        switch (alignStyle) {
+            case 1:
+                align = Align.ALIGN_CENTER;
+                break;
+            case 2:
+                align = Align.ALIGN_RIGHT;
+                break;
+            default:
+                align = Align.ALIGN_LEFT;
+                break;
+        }
+
+        ta.recycle();
     }
 
 
