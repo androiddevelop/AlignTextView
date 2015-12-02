@@ -10,7 +10,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 3
-        versionName "2.1.0"
+        versionName "2.1.1"
     }
 
     buildTypes {
@@ -22,7 +22,7 @@ android {
 }
 
 
-version = "2.1.0"
+version = "2.1.1"
 def siteUrl = 'https://github.com/androiddevelop/AlignTextView'
 def gitUrl = 'https://github.com/androiddevelop/AlignTextView.git'
 group = "me.codeboy.android"
