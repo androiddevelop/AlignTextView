@@ -24,6 +24,7 @@ public class AlignTextView extends TextView {
     private List<Integer> tailLines = new ArrayList<Integer>(); // 尾行
     private Align align = Align.ALIGN_LEFT; // 默认最后一行左对齐
     private boolean firstCalc = true;  // 初始化计算
+    private int oldPaddingBottom = Integer.MIN_VALUE;  // 上一次的paddingBottom，用不重新绘制时计算
 
     // 尾行对齐方式
     public enum Align {
@@ -83,8 +84,14 @@ public class AlignTextView extends TextView {
             //绘制第一行少加了该行字体的上下间距
             float firstLineGap = fm.bottom - fm.descent + fm.ascent - fm.top;
 
-            setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), getPaddingBottom() +
+            //以首次paddingBottom为基准，此后都在次基础上调整
+            if (oldPaddingBottom == Integer.MIN_VALUE) {
+                oldPaddingBottom = getPaddingBottom();
+            }
+
+            setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), oldPaddingBottom +
                     heightGap + (int) (firstLineGap + 0.5));
+
 
             firstCalc = false;
         }
@@ -142,8 +149,7 @@ public class AlignTextView extends TextView {
 
             for (int j = 0; j < line.length(); j++) {
                 float drawX = paint.measureText(line.substring(0, j)) + interval * j;
-                canvas.drawText(line.substring(j, j + 1), drawX + drawSpacingX, drawY +
-                        paddingTop, paint);
+                canvas.drawText(line.substring(j, j + 1), drawX + drawSpacingX, drawY + paddingTop, paint);
             }
 
         }
@@ -172,8 +178,7 @@ public class AlignTextView extends TextView {
         int startPosition = 0; // 起始位置
         float oneChineseWidth = paint.measureText("中");
         int ignoreCalcLength = (int) (width / oneChineseWidth + 0.99); // 忽略计算的长度
-        StringBuilder sb = new StringBuilder(text.substring(0, Math.min(ignoreCalcLength, text
-                .length())));
+        StringBuilder sb = new StringBuilder(text.substring(0, Math.min(ignoreCalcLength, text.length())));
 
 
         for (int i = ignoreCalcLength; i < text.length(); i++) {
@@ -202,5 +207,12 @@ public class AlignTextView extends TextView {
         }
 
         tailLines.add(lines.size() - 1);
+    }
+
+
+    @Override
+    public void setText(CharSequence text, BufferType type) {
+        firstCalc = true;
+        super.setText(text, type);
     }
 }
