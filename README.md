@@ -10,9 +10,19 @@ Android 4.0以上
 
 **build.gradle加入dependencies**
 
-    compile 'me.codeboy.android:align-text-view:2.1.1'
+    compile 'me.codeboy.android:align-text-view:2.2.0'
 
-**CBAlignTextView (新的版本，支持选择复制，排版效果也比较的好)**
+**AlignTextView (不支持选择复制，在不需要进行选择复制的情况下使用，排版效果好)**
+
+     <me.codeboy.android.aligntextview.AlignTextView
+            android:id="@+id/alignTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+
+
+**CBAlignTextView (新的版本，支持选择复制，排版效果比较的好)**
 
     <me.codeboy.android.aligntextview.CBAlignTextView
             android:id="@+id/cbAlignTv"
@@ -24,15 +34,6 @@ Android 4.0以上
 如果需要支持android默认的选择复制，请在xml中加入以下代码:
 
     android:textIsSelectable="true"
-
-
-
-**AlignTextView (旧的版本，不支持选择复制，但是排版效果更好)**
-
-     <me.codeboy.android.aligntextview.AlignTextView
-            android:id="@+id/alignTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
 ## 相关方法
 
@@ -92,35 +93,8 @@ AlignTextView是旧的版本，不支持选择复制，但是可以自定义最�
                     android:textSize="14dsp"/>    
         </LinearLayout>
 
-  
-  
 ## 使用说明
-1.  强烈建议使用`CBAlignTextView`而不是`AlignTextView`。
+1.  不用进行选择复制的时候使用 `AlignTextView`,需要进行选择复制的时候使用`CBAlignTextView`。
 2.  `AlignTextView`与`CBAlignTextView`在对齐的时候不会对英文单词等进行考虑，它们都是以字符(character)为基础的,不是词(word)。
 3.  使用CBAlignTextView时建议进行中文标点的转换。 
 4.  demo项目位与app下，可以单独提取出me.codeboy.android.aligntextview.AlignTextView和me.codeboy.android.aligntextview.CBAlignTextView使用。
-
-## 更新历史
-
-###2.1.1
-1. 修正`AlignTextView`重新设置文本后不更新问题
-
-###2.1.0
-1. 修正`CBAlignTextView`的显示等bug
-2. 加入xml注解，可以指定`AlignTextView`最后一行得到对齐方式等
-3. 修正`CBAlignTextView`选择复制后浮层关闭在Android M(6.0)中失效问题
-
-
-###2.0.3
-1. 优化`AlignTextView`的性能(计算每行的字数)
-2. 修正`AlignTextView`的padding问题(注意:项目使用中获取的paddingBottom可能与自己设置的不同,若需要代码设置paddingBottom，请在getPaddingBottom的基础上进行添加或减少)
-
-###2.0.2
-1. 整合项目，加入仓库，直接引用使用即可
-
-###2.0
-1. 加入`CBAlignTextView`,支持原生TextView的选择复制。
-2. 修改包名(域名更换了，欢迎访问<http://codeboy.me>)
-
-###1.1
-1. 修正由于对齐造成AlignTextView行数减少，从而下方留出空白。
