@@ -1,5 +1,9 @@
-<manifest package="me.codeboy.android.aligntextview.example"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="me.codeboy.android.aligntextview.example"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
