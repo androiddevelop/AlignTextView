@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <me.codeboy.android.aligntextview.AlignTextView
+        android:id="@+id/alignTextViewTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/red_select"
+        android:ellipsize="marquee"
+        android:textIsSelectable="true"
+        android:textSize="@dimen/small_font"
+       />
+
+
+</ScrollView>

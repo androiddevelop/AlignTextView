@@ -13,7 +13,7 @@ import me.codeboy.android.aligntextview.CBAlignTextView;
 /**
  * AlignTextView例子
  *
- * @author YD
+ * @author yuedong.li
  */
 public class AlignTextViewExample extends Activity {
 
