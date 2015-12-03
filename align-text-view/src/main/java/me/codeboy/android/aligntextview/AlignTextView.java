@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.text.Layout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -77,22 +77,27 @@ public class AlignTextView extends TextView {
                 calc(paint, item);
             }
 
-            //计算实际高度,加上多出的行的高度(一般是减少)
-            int heightGap = getLineHeight() * (lines.size() - getLineCount());
-
-            Paint.FontMetrics fm = paint.getFontMetrics();
-            //绘制第一行少加了该行字体的上下间距
-            float firstLineGap = fm.bottom - fm.descent + fm.ascent - fm.top;
-
-            //以首次paddingBottom为基准，此后都在次基础上调整
+            //以首次paddingBottom为基准，此后都在此基础上调整
             if (oldPaddingBottom == Integer.MIN_VALUE) {
                 oldPaddingBottom = getPaddingBottom();
             }
 
-            setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), oldPaddingBottom +
-                    heightGap + (int) (firstLineGap + 0.5));
+            //获取行高
+            textHeight = 1.0f * measureTextViewHeight(text, paint.getTextSize(), getMeasuredWidth
+                    () - getPaddingLeft() - getPaddingRight()) / getLineCount();
 
+            //计算实际高度,加上多出的行的高度(一般是减少)
+            float heightGap = textHeight * (lines.size() - getLineCount());
 
+            int height = getHeight();
+
+            int screenHeight = getResources().getDisplayMetrics().heightPixels;
+            if (height < screenHeight) {
+                getLayoutParams().height = getHeight() - (int) Math.ceil(heightGap);
+            } else {
+                setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), oldPaddingBottom
+                        + (int) Math.floor(heightGap));
+            }
             firstCalc = false;
         }
     }
@@ -103,21 +108,10 @@ public class AlignTextView extends TextView {
         paint.setColor(getCurrentTextColor());
         paint.drawableState = getDrawableState();
 
-        Paint.FontMetrics fm = paint.getFontMetrics();
-        // 计算行高
-        Layout layout = getLayout();
-
-        // layout.getLayout()在4.4.3出现NullPointerException
-        if (layout == null) {
-            return;
-        }
-
         width = getMeasuredWidth();
-        textHeight = fm.descent - fm.ascent;
 
-        textHeight = textHeight * layout.getSpacingMultiplier() + layout.getSpacingAdd();
-
-        float firstHeight = getTextSize();
+        Paint.FontMetrics fm = paint.getFontMetrics();
+        float firstHeight = getTextSize() - (fm.bottom - fm.descent + fm.ascent - fm.top);
 
         int gravity = getGravity();
         if ((gravity & 0x1000) == 0) { // 是否垂直居中
@@ -149,9 +143,9 @@ public class AlignTextView extends TextView {
 
             for (int j = 0; j < line.length(); j++) {
                 float drawX = paint.measureText(line.substring(0, j)) + interval * j;
-                canvas.drawText(line.substring(j, j + 1), drawX + drawSpacingX, drawY + paddingTop, paint);
+                canvas.drawText(line.substring(j, j + 1), drawX + drawSpacingX, drawY +
+                        paddingTop, paint);
             }
-
         }
     }
 
@@ -178,7 +172,8 @@ public class AlignTextView extends TextView {
         int startPosition = 0; // 起始位置
         float oneChineseWidth = paint.measureText("中");
         int ignoreCalcLength = (int) (width / oneChineseWidth + 0.99); // 忽略计算的长度
-        StringBuilder sb = new StringBuilder(text.substring(0, Math.min(ignoreCalcLength, text.length())));
+        StringBuilder sb = new StringBuilder(text.substring(0, Math.min(ignoreCalcLength, text
+                .length())));
 
 
         for (int i = ignoreCalcLength; i < text.length(); i++) {
@@ -214,5 +209,32 @@ public class AlignTextView extends TextView {
     public void setText(CharSequence text, BufferType type) {
         firstCalc = true;
         super.setText(text, type);
+    }
+
+    @Override
+    public void setPadding(int left, int top, int right, int bottom) {
+        if (bottom != getPaddingBottom()) {
+            oldPaddingBottom = Integer.MIN_VALUE;
+        }
+        super.setPadding(left, top, right, bottom);
+    }
+
+
+    /**
+     * 获取文本实际所占高度，用户计算行高
+     *
+     * @param text        文本
+     * @param textSize    字体大小
+     * @param deviceWidth 屏幕宽度
+     * @return 高度
+     */
+    private int measureTextViewHeight(String text, float textSize, int deviceWidth) {
+        TextView textView = new TextView(getContext());
+        textView.setText(text);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        int widthMeasureSpec = MeasureSpec.makeMeasureSpec(deviceWidth, MeasureSpec.EXACTLY);
+        int heightMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
+        textView.measure(widthMeasureSpec, heightMeasureSpec);
+        return textView.getMeasuredHeight();
     }
 }
