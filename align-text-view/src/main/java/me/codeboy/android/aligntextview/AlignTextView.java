@@ -19,12 +19,20 @@ import java.util.List;
  */
 public class AlignTextView extends TextView {
     private float textHeight; // 单行文字高度
+    private float textLineSpaceExtra = 0; // 额外的行间距
     private int width; // textView宽度
     private List<String> lines = new ArrayList<String>(); // 分割后的行
     private List<Integer> tailLines = new ArrayList<Integer>(); // 尾行
     private Align align = Align.ALIGN_LEFT; // 默认最后一行左对齐
     private boolean firstCalc = true;  // 初始化计算
-    private int oldPaddingBottom = Integer.MIN_VALUE;  // 上一次的paddingBottom，用不重新绘制时计算
+
+    private float lineSpacingMultiplier = 1.0f;
+    private float lineSpacingAdd = 0.0f;
+
+    private int originalHeight = 0; //原始高度
+    private int originalLineCount = 0; //原始行数
+    private int originalPaddingBottom = 0; //原始paddingBottom
+    private boolean setPaddingFromMe = false;
 
     // 尾行对齐方式
     public enum Align {
@@ -39,6 +47,17 @@ public class AlignTextView extends TextView {
     public AlignTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setTextIsSelectable(false);
+
+        lineSpacingMultiplier = attrs.getAttributeFloatValue("http://schemas.android" + "" +
+                ".com/apk/res/android", "lineSpacingMultiplier", 1.0f);
+
+        int[] attributes = new int[]{android.R.attr.lineSpacingExtra};
+
+        TypedArray arr = context.obtainStyledAttributes(attrs, attributes);
+
+        lineSpacingAdd = arr.getDimensionPixelSize(0, 0);
+
+        originalPaddingBottom = getPaddingBottom();
 
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.AlignTextView);
 
@@ -77,27 +96,24 @@ public class AlignTextView extends TextView {
                 calc(paint, item);
             }
 
-            //以首次paddingBottom为基准，此后都在此基础上调整
-            if (oldPaddingBottom == Integer.MIN_VALUE) {
-                oldPaddingBottom = getPaddingBottom();
-            }
+            //使用替代textview计算原始高度与行数
+            measureTextViewHeight(text, paint.getTextSize(), getMeasuredWidth() -
+                    getPaddingLeft() - getPaddingRight());
 
             //获取行高
-            textHeight = 1.0f * measureTextViewHeight(text, paint.getTextSize(), getMeasuredWidth
-                    () - getPaddingLeft() - getPaddingRight()) / getLineCount();
+            textHeight = 1.0f * originalHeight / originalLineCount;
+
+            textLineSpaceExtra = textHeight * (lineSpacingMultiplier - 1) + lineSpacingAdd;
 
             //计算实际高度,加上多出的行的高度(一般是减少)
-            float heightGap = textHeight * (lines.size() - getLineCount());
+            int heightGap = (int) ((textLineSpaceExtra + textHeight) * (lines.size() -
+                    originalLineCount));
 
-            int height = getHeight();
+            setPaddingFromMe = true;
+            //调整textview的paddingBottom来缩小底部空白
+            setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(),
+                    originalPaddingBottom + heightGap);
 
-            int screenHeight = getResources().getDisplayMetrics().heightPixels;
-            if (height < screenHeight) {
-                getLayoutParams().height = getHeight() - (int) Math.ceil(heightGap);
-            } else {
-                setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), oldPaddingBottom
-                        + (int) Math.floor(heightGap));
-            }
             firstCalc = false;
         }
     }
@@ -144,7 +160,7 @@ public class AlignTextView extends TextView {
             for (int j = 0; j < line.length(); j++) {
                 float drawX = paint.measureText(line.substring(0, j)) + interval * j;
                 canvas.drawText(line.substring(j, j + 1), drawX + drawSpacingX, drawY +
-                        paddingTop, paint);
+                        paddingTop + textLineSpaceExtra * i, paint);
             }
         }
     }
@@ -171,12 +187,11 @@ public class AlignTextView extends TextView {
         }
         int startPosition = 0; // 起始位置
         float oneChineseWidth = paint.measureText("中");
-        int ignoreCalcLength = (int) (width / oneChineseWidth + 0.99); // 忽略计算的长度
-        StringBuilder sb = new StringBuilder(text.substring(0, Math.min(ignoreCalcLength, text
-                .length())));
+        int ignoreCalcLength = (int) (width / oneChineseWidth); // 忽略计算的长度
+        StringBuilder sb = new StringBuilder(text.substring(0, Math.min(ignoreCalcLength + 1,
+                text.length())));
 
-
-        for (int i = ignoreCalcLength; i < text.length(); i++) {
+        for (int i = ignoreCalcLength + 1; i < text.length(); i++) {
             if (paint.measureText(text.substring(startPosition, i + 1)) > width) {
                 startPosition = i;
                 //将之前的字符串加入列表中
@@ -185,14 +200,14 @@ public class AlignTextView extends TextView {
                 sb = new StringBuilder();
 
                 //添加开始忽略的字符串，长度不足的话直接结束,否则继续
-                if ((text.length() - startPosition) >= ignoreCalcLength) {
+                if ((text.length() - startPosition) > ignoreCalcLength) {
                     sb.append(text.substring(startPosition, startPosition + ignoreCalcLength));
                 } else {
                     lines.add(text.substring(startPosition));
                     break;
                 }
 
-                i = i + ignoreCalcLength;
+                i = i + ignoreCalcLength - 1;
             } else {
                 sb.append(text.charAt(i));
             }
@@ -213,28 +228,29 @@ public class AlignTextView extends TextView {
 
     @Override
     public void setPadding(int left, int top, int right, int bottom) {
-        if (bottom != getPaddingBottom()) {
-            oldPaddingBottom = Integer.MIN_VALUE;
+        if (!setPaddingFromMe) {
+            originalPaddingBottom = bottom;
         }
+        setPaddingFromMe = false;
         super.setPadding(left, top, right, bottom);
     }
 
 
     /**
-     * 获取文本实际所占高度，用户计算行高
+     * 获取文本实际所占高度，辅助用于计算行高,行数
      *
      * @param text        文本
      * @param textSize    字体大小
      * @param deviceWidth 屏幕宽度
-     * @return 高度
      */
-    private int measureTextViewHeight(String text, float textSize, int deviceWidth) {
+    private void measureTextViewHeight(String text, float textSize, int deviceWidth) {
         TextView textView = new TextView(getContext());
         textView.setText(text);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
         int widthMeasureSpec = MeasureSpec.makeMeasureSpec(deviceWidth, MeasureSpec.EXACTLY);
         int heightMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
         textView.measure(widthMeasureSpec, heightMeasureSpec);
-        return textView.getMeasuredHeight();
+        originalLineCount = textView.getLineCount();
+        originalHeight = textView.getMeasuredHeight();
     }
 }
