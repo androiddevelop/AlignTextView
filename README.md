@@ -10,7 +10,7 @@ Android 4.0以上
 
 **build.gradle加入dependencies**
 
-    compile 'me.codeboy.android:align-text-view:2.2.0'
+    compile 'me.codeboy.android:align-text-view:2.3.0'
 
 **AlignTextView (不支持选择复制，在不需要进行选择复制的情况下使用，排版效果好)**
 
