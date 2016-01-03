@@ -1,19 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    >
 
     <me.codeboy.android.aligntextview.AlignTextView
         android:id="@+id/alignTextViewTest"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/red_select"
+        android:layout_weight="1"
+        android:background="@color/red2"
         android:ellipsize="marquee"
+        android:lineSpacingExtra="1dp"
+        android:lineSpacingMultiplier="2"
+        android:paddingBottom="10dp"
         android:textIsSelectable="true"
         android:textSize="@dimen/small_font"
-       />
+        />
+
+    <TextView
+        android:id="@+id/textViewTest"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/green2"
+        android:gravity="center_vertical"
+        android:ellipsize="marquee"
+        android:lineSpacingExtra="1dp"
+        android:lineSpacingMultiplier="2"
+        android:paddingBottom="10dp"
+        android:textIsSelectable="true"
+        android:textSize="@dimen/small_font"
+        />
 
 
-</ScrollView>
+</LinearLayout>

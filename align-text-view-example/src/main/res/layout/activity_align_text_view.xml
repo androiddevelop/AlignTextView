@@ -100,10 +100,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_below="@+id/alignTextViewTitle"
-                android:background="@drawable/red_select"
+                android:background="@color/red2"
                 android:padding="@dimen/view_padding"
                 android:ellipsize="marquee"
-                android:textIsSelectable="true"
                 cb:align="left"
                 android:textSize="@dimen/small_font"/>
         </RelativeLayout>

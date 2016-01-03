@@ -49,7 +49,7 @@ public class AlignTextViewExample extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                alignTv.setText(text + text);
+                alignTv.setText(text + text + text);
             }
         },5000);
 
