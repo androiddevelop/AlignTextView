@@ -20,8 +20,6 @@ Android 4.0以上
             android:layout_height="wrap_content"/>
 
 
-
-
 **CBAlignTextView (新的版本，支持选择复制，排版效果比较的好)**
 
     <me.codeboy.android.aligntextview.CBAlignTextView
