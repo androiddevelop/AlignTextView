@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<me.codeboy.android.aligntextview.AlignTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/align_text_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/red2"
+    android:ellipsize="marquee"
+    android:lineSpacingExtra="1dp"
+    android:lineSpacingMultiplier="2"
+    android:padding="10dp"
+    android:textIsSelectable="true"
+    android:textSize="@dimen/small_font" />
