@@ -8,7 +8,7 @@
     >
 
     <me.codeboy.android.aligntextview.AlignTextView
-        android:id="@+id/align_text_view"
+        android:id="@+id/alignTextViewTest"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -22,7 +22,7 @@
         />
 
     <TextView
-        android:id="@+id/text_view"
+        android:id="@+id/textViewTest"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

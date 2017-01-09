@@ -19,7 +19,7 @@
             >
 
             <TextView
-                android:id="@+id/text_view_title"
+                android:id="@+id/textviewTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/bg_white"
@@ -30,11 +30,11 @@
             </TextView>
 
             <TextView
-                android:id="@+id/text_view"
+                android:id="@+id/textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_below="@id/text_view_title"
+                android:layout_below="@id/textviewTitle"
                 android:padding="@dimen/view_padding"
                 android:textColorHighlight="@android:color/holo_blue_dark"
                 android:textIsSelectable="true"
@@ -47,7 +47,7 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/justify_title"
+                android:id="@+id/justifyTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/blue"
@@ -58,11 +58,11 @@
             </TextView>
 
             <me.biubiubiu.justifytext.library.JustifyTextView
-                android:id="@+id/justify_text_view"
+                android:id="@+id/justifyTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_below="@+id/justify_title"
+                android:layout_below="@+id/justifyTitle"
                 android:background="@drawable/blue_select"
                 android:padding="@dimen/view_padding"
                 android:textIsSelectable="true"
@@ -84,7 +84,7 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/align_text_view_title"
+                android:id="@+id/alignTextViewTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/red"
@@ -95,11 +95,11 @@
             </TextView>
 
             <me.codeboy.android.aligntextview.AlignTextView
-                android:id="@+id/align_text_view"
+                android:id="@+id/alignTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_below="@+id/align_text_view_title"
+                android:layout_below="@+id/alignTextViewTitle"
                 android:background="@color/red2"
                 android:padding="@dimen/view_padding"
                 android:ellipsize="marquee"
@@ -114,7 +114,7 @@
             >
 
             <TextView
-                android:id="@+id/cb_align_text_view_title"
+                android:id="@+id/cbAlignTextViewTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/green"
@@ -125,11 +125,11 @@
             </TextView>
 
             <me.codeboy.android.aligntextview.CBAlignTextView
-                android:id="@+id/cb_align_text_view"
+                android:id="@+id/cbAlignTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_below="@id/cb_align_text_view_title"
+                android:layout_below="@id/cbAlignTextViewTitle"
                 android:background="@drawable/green_select"
                 android:paddingTop="@dimen/view_padding"
                 cb:punctuationConvert="true"

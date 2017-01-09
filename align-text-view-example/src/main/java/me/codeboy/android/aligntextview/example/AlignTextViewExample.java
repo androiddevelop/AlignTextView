@@ -17,10 +17,10 @@ import me.codeboy.android.aligntextview.CBAlignTextView;
  */
 public class AlignTextViewExample extends Activity {
 
-    private TextView mTextViewTv;
-    private TextView mAlignTv;
-    private TextView mJustifyTv;
-    private CBAlignTextView mCbAlignTv;
+    TextView textViewTv;
+    TextView alignTv;
+    TextView justifyTv;
+    CBAlignTextView cbAlignTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,28 +30,28 @@ public class AlignTextViewExample extends Activity {
                 .LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_align_text_view);
 
-        mTextViewTv = (TextView) findViewById(R.id.text_view);
-        mJustifyTv = (TextView) findViewById(R.id.justify_text_view);
-        mAlignTv = (TextView) findViewById(R.id.align_text_view);
-        mCbAlignTv = (CBAlignTextView) findViewById(R.id.cb_align_text_view);
+        textViewTv = (TextView) findViewById(R.id.textview);
+        justifyTv = (TextView) findViewById(R.id.justifyTextView);
+        alignTv = (TextView) findViewById(R.id.alignTextView);
+        cbAlignTv = (CBAlignTextView) findViewById(R.id.cbAlignTextView);
 
         final String text = "这是一段中英文混合的文本，I am very happy today。 aaaaaaaaaa," +
                 "测试TextView文本对齐\n\nAlignTextView可以通过setAlign()方法设置每一段尾行的对齐方式, 默认尾行居左对齐. " +
                 "CBAlignTextView可以像原生TextView一样操作, 但是需要使用getRealText()获取文本, 欢迎访问open.codeboy.me";
-        mTextViewTv.setText(text);
-        mJustifyTv.setText(text);
-        mAlignTv.setText(text);
-//        mCbAlignTv.setPunctuationConvert(true);
-        mCbAlignTv.setText(text);
+        textViewTv.setText(text);
+        justifyTv.setText(text);
+        alignTv.setText(text);
+//        cbAlignTv.setPunctuationConvert(true);
+        cbAlignTv.setText(text);
 
-        mAlignTv.setMovementMethod(new ScrollingMovementMethod());
+        alignTv.setMovementMethod(new ScrollingMovementMethod());
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mAlignTv.setText(text + text + text);
+                alignTv.setText(text + text + text);
             }
-        }, 5000);
+        },5000);
 
     }
 }
