@@ -27,15 +27,27 @@ public class AlignTextViewRecyclerViewExample extends Activity {
                 .LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_align_text_view_recycler_view);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        AlignTetViewAdapter adapter = new AlignTetViewAdapter(this);
+        final AlignTetViewAdapter adapter = new AlignTetViewAdapter(this);
         List<String> texts = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            texts.add("欢迎访问codeboy.me，序号:" + i + "欢迎访问codeboy.me，序号:" + i + "欢迎访问codeboy.me，序号:" + i + "欢迎访问codeboy.me，序号:" + i);
+        for (int i = 0; i < 20; i++) {
+            texts.add("欢迎访问codeboy.me，序号:" + i);
         }
         adapter.setData(texts);
         recyclerView.setAdapter(adapter);
+
+        recyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                List<String> texts2 = new ArrayList<>();
+                for (int i = 20; i < 40; i++) {
+                    texts2.add("欢迎访问codeboy.me，序号:" + i);
+                }
+                adapter.appendData(texts2);
+                adapter.notifyDataSetChanged();
+            }
+        }, 5000);
 
     }
 }

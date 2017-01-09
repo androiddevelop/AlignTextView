@@ -26,11 +26,26 @@ public class AlignTetViewAdapter extends RecyclerView.Adapter<AlignTextViewViewH
         mContext = context;
     }
 
+    /**
+     * 设置数据
+     * @param texts 文本
+     */
     public void setData(List<String> texts) {
         if (texts == null || texts.size() == 0) {
             return;
         }
         mTexts.clear();
+        mTexts.addAll(texts);
+    }
+
+    /**
+     * 追加数据
+     * @param texts 文本
+     */
+    public void appendData(List<String> texts) {
+        if (texts == null || texts.size() == 0) {
+            return;
+        }
         mTexts.addAll(texts);
     }
 
