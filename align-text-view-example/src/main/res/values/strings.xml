@@ -4,5 +4,6 @@
     <string name="justify_text_view">JustifyTextView</string>
     <string name="align_text_view">AlignTextView</string>
     <string name="cb_align_text_view">CBAlignTextView</string>
+    <string name="cb_align_text_view_content">这是一段中英文混合的文本,I am very happy today测试TextView文本对齐AlignTextView可以通过setAlign()方法设置每一段尾行的对齐方式,默认尾行居左对齐.CBAlignTextView可以像原生TextView一样操作，但是需要使用getRealText()获取文本,欢迎访问open.codeboy.me</string>
 
 </resources>
