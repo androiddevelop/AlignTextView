@@ -11,18 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.codeboy.android.aligntextview.example.R;
-import me.codeboy.android.aligntextview.example.vh.AlignTextViewViewHolder;
+import me.codeboy.android.aligntextview.example.vh.CBAlignTextViewViewHolder;
 
 /**
- * adater
- * Created by YD on 09/01/2017.
+ * adapter
+ * Created by YD on 10/14/2017.
  */
-
-public class AlignTetViewAdapter extends RecyclerView.Adapter<AlignTextViewViewHolder> {
+public class CBAlignTetViewAdapter extends RecyclerView.Adapter<CBAlignTextViewViewHolder> {
     private List<String> mTexts = new ArrayList<>();
     private Context mContext;
 
-    public AlignTetViewAdapter(Context context) {
+    public CBAlignTetViewAdapter(Context context) {
         mContext = context;
     }
 
@@ -50,16 +49,17 @@ public class AlignTetViewAdapter extends RecyclerView.Adapter<AlignTextViewViewH
     }
 
     @Override
-    public AlignTextViewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.activity_align_text_view_recycler_view_item, parent, false);
-        return new AlignTextViewViewHolder(rootView);
+    public CBAlignTextViewViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View rootView = LayoutInflater.from(mContext).inflate(R.layout.activity_cb_align_text_view_recycler_view_item, parent, false);
+        return new CBAlignTextViewViewHolder(rootView);
     }
 
     @Override
-    public void onBindViewHolder(AlignTextViewViewHolder holder, int position) {
+    public void onBindViewHolder(CBAlignTextViewViewHolder holder, int position) {
         String text = mTexts.get(position);
         if (!TextUtils.isEmpty(text)) {
-            holder.alignTextView.setText(mTexts.get(position));
+            holder.cbAlignTextView.setPunctuationConvert(true);
+            holder.cbAlignTextView.setText(mTexts.get(position));
         }
     }
 
