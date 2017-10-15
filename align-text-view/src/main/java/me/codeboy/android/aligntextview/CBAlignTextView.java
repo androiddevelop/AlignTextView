@@ -27,15 +27,15 @@ import me.codeboy.android.aligntextview.util.CBAlignTextViewUtil;
  * Created by yuedong.lyd on 6/28/15.
  */
 public class CBAlignTextView extends TextView {
+    private final static char SPACE = ' '; //空格;
     private List<Integer> addCharPosition = new ArrayList<Integer>();  //增加空格的位置
-    private final char SPACE = ' '; //空格;
+    private static List<Character> punctuation = new ArrayList<Character>(); //标点符号
     private CharSequence oldText = ""; //旧文本，本来应该显示的文本
     private CharSequence newText = ""; //新文本，真正显示的文本
     private boolean inProcess = false; //旧文本是否已经处理为新文本
     private boolean isAddPadding = false; //是否添加过边距
     private boolean isConvert = false; //是否转换标点符号
     private boolean isAddListener = false; //是否添加监听器
-    private static List<Character> punctuation = new ArrayList<Character>(); //标点符号
 
     //标点符号用于在textview右侧多出空间时，将空间加到标点符号的后面,以便于右端对齐
     static {
@@ -64,15 +64,21 @@ public class CBAlignTextView extends TextView {
 
     public CBAlignTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CBAlignTextView);
-
         isConvert = ta.getBoolean(R.styleable.CBAlignTextView_punctuationConvert, false);
-
         ta.recycle();
         addLayoutListener();
-    }
 
+        //判断使用xml中是用android:text
+        TypedArray tsa = context.obtainStyledAttributes(attrs, new int[]{
+                android.R.attr.text
+        });
+        String text = tsa.getString(0);
+        tsa.recycle();
+        if (!TextUtils.isEmpty(text)) {
+            setText(text);
+        }
+    }
 
     /**
      * 监听文本复制，对于复制的文本进行空格剔除
@@ -247,6 +253,11 @@ public class CBAlignTextView extends TextView {
 
     @Override
     public void setText(CharSequence text, BufferType type) {
+        //父类初始化的时候子类暂时没有初始化, 覆盖方法会被执行，屏蔽掉
+        if (addCharPosition == null) {
+            super.setText(text, type);
+            return;
+        }
         if (!inProcess && (text != null && !text.equals(newText))) {
             oldText = text;
             if (!isAddListener) {
@@ -313,7 +324,6 @@ public class CBAlignTextView extends TextView {
      * 添加监听器，用于在布局进行改变时重新绘制文本
      */
     private void addLayoutListener() {
-
         isAddListener = true;
         getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver
                 .OnGlobalLayoutListener() {
