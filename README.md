@@ -10,7 +10,7 @@ Android 4.0以上
 
 **build.gradle加入dependencies**
 
-    compile 'me.codeboy.android:align-text-view:2.3.0'
+    compile 'me.codeboy.android:align-text-view:2.3.1'
 
 **AlignTextView (不支持选择复制，在不需要进行选择复制的情况下使用，排版效果好)**
 
@@ -96,3 +96,10 @@ AlignTextView是旧的版本，不支持选择复制，但是可以自定义最�
 2.  `AlignTextView`与`CBAlignTextView`在对齐的时候不会对英文单词等进行考虑，它们都是以字符(character)为基础的,不是词(word)。
 3.  使用CBAlignTextView时建议进行中文标点的转换。 
 4.  demo项目位与app下，可以单独提取出me.codeboy.android.aligntextview.AlignTextView和me.codeboy.android.aligntextview.CBAlignTextView使用。
+
+## 更新历史
+### v2.3.1
+1. 修复CBAlignTextView在xml中设置text时空指针问题。
+1. 修复CBAlignTextView设置空文本无效问题。
+
+
