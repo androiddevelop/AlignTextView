@@ -101,10 +101,10 @@
                 android:layout_alignParentBottom="true"
                 android:layout_below="@+id/align_text_view_title"
                 android:background="@color/red2"
-                android:padding="@dimen/view_padding"
                 android:ellipsize="marquee"
-                cb:align="left"
-                android:textSize="@dimen/small_font"/>
+                android:padding="@dimen/view_padding"
+                android:textSize="@dimen/small_font"
+                cb:align="left"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -132,10 +132,11 @@
                 android:layout_below="@id/cb_align_text_view_title"
                 android:background="@drawable/green_select"
                 android:paddingTop="@dimen/view_padding"
-                cb:punctuationConvert="true"
                 android:textColorHighlight="@android:color/holo_blue_dark"
                 android:textIsSelectable="true"
-                android:textSize="@dimen/small_font"/>
+                android:textSize="@dimen/small_font"
+                cb:punctuationConvert="true"/>
+
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

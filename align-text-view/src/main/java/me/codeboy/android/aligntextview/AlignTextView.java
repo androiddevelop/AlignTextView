@@ -48,16 +48,12 @@ public class AlignTextView extends TextView {
         super(context, attrs);
         setTextIsSelectable(false);
 
-        lineSpacingMultiplier = attrs.getAttributeFloatValue("http://schemas.android" + "" +
-                ".com/apk/res/android", "lineSpacingMultiplier", 1.0f);
-
-        int[] attributes = new int[]{android.R.attr.lineSpacingExtra};
-
+        int[] attributes = new int[]{android.R.attr.lineSpacingExtra, android.R.attr.lineSpacingMultiplier};
         TypedArray arr = context.obtainStyledAttributes(attrs, attributes);
-
         lineSpacingAdd = arr.getDimensionPixelSize(0, 0);
-
+        lineSpacingMultiplier = arr.getFloat(1, 1.0f);
         originalPaddingBottom = getPaddingBottom();
+        arr.recycle();
 
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.AlignTextView);
 

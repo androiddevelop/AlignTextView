@@ -287,7 +287,10 @@ public class CBAlignTextView extends TextView {
      * @param setText 是否设置textView的文本
      */
     private void process(boolean setText) {
-        if (!inProcess && !TextUtils.isEmpty(oldText) && getVisibility() == VISIBLE) {
+        if (oldText == null) {
+            oldText = "";
+        }
+        if (!inProcess && getVisibility() == VISIBLE) {
             addCharPosition.clear();
 
             //转化字符，5.0系统对字体处理有所变动
