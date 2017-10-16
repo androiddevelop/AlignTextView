@@ -9,7 +9,6 @@ import android.view.Window;
 import android.widget.TextView;
 
 import me.codeboy.android.aligntextview.AlignTextView;
-import me.codeboy.common.base.net.CBHttp;
 
 /**
  * AlignTextView 长文本例子
@@ -46,8 +45,6 @@ public class AlignTextViewLongTextExample extends Activity {
             @Override
             public void dispatchMessage(Message msg) {
                 super.dispatchMessage(msg);
-
-//                String text = msg.getData().getString("text");
                 text = text + text;
                 text = text + text;
                 text = text + text;
@@ -60,18 +57,12 @@ public class AlignTextViewLongTextExample extends Activity {
             public void run() {
                 try {
                     Thread.sleep(3000);
-                    String text = CBHttp.getInstance().connect("http://test.codeboy.me/text")
-                            .execute();
-                    Message message = new Message();
-                    message.getData().putString("text", text);
-                    message.what = 0;
-                    handler.sendMessage(message);
+                    handler.sendEmptyMessage(0);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }.start();
-
 
     }
 }

@@ -16,8 +16,9 @@
         </activity>
 
         <activity android:name=".AlignTextViewLongTextExample" />
-
         <activity android:name=".AlignTextViewRecyclerViewExample" />
+        <activity android:name=".AlignTextViewNpeExample" />
+        <activity android:name=".CBAlignTextViewRecyclerViewExample" />
 
     </application>
 

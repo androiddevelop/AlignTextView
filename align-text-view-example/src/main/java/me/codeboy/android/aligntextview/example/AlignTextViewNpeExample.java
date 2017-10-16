@@ -2,6 +2,8 @@ package me.codeboy.android.aligntextview.example;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Window;
 
 import me.codeboy.android.aligntextview.CBAlignTextView;
@@ -28,5 +30,27 @@ public class AlignTextViewNpeExample extends Activity {
 
         mTextViewTv = (CBAlignTextView) findViewById(R.id.align_text_view);
         mTextViewTv.setText(text);
+
+
+
+        final Handler handler = new Handler() {
+            @Override
+            public void dispatchMessage(Message msg) {
+                super.dispatchMessage(msg);
+                mTextViewTv.setText("");
+            }
+        };
+
+        new Thread() {
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                    handler.sendEmptyMessage(0);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
     }
 }
