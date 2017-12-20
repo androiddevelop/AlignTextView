@@ -1,6 +1,6 @@
 AlignTextView
 --- 
-**字体对齐的TextView**
+#### **字体对齐的TextView**
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.codeboy.android/align-text-view/badge.svg)](https://maven-badges.herokuapp.com/maven-central/me.codeboy.android/align-text-view)
   
