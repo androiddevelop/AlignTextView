@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.ViewTreeObserver;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.lang.reflect.Method;
@@ -24,9 +24,13 @@ import me.codeboy.android.aligntextview.util.CBAlignTextViewUtil;
  * 打乱原生的TextView的排版换行选择复制等问题。为了能够使右端尽可能的对齐，将右侧多出的空隙
  * 尽可能的分配到该行的标点后面。达到两段对齐的效果。
  * </p>
+ * <p>
+ * 重新设置文本前，请调用reset()进行状态重置。
+ * </p>
  * Created by yuedong.lyd on 6/28/15.
  */
 public class CBAlignTextView extends TextView {
+    private final static String TAG = CBAlignTextView.class.getSimpleName();
     private final static char SPACE = ' '; //空格;
     private List<Integer> addCharPosition = new ArrayList<Integer>();  //增加空格的位置
     private static List<Character> punctuation = new ArrayList<Character>(); //标点符号
@@ -35,7 +39,6 @@ public class CBAlignTextView extends TextView {
     private boolean inProcess = false; //旧文本是否已经处理为新文本
     private boolean isAddPadding = false; //是否添加过边距
     private boolean isConvert = false; //是否转换标点符号
-    private boolean isAddListener = false; //是否添加监听器
 
     //标点符号用于在textview右侧多出空间时，将空间加到标点符号的后面,以便于右端对齐
     static {
@@ -59,7 +62,6 @@ public class CBAlignTextView extends TextView {
 
     public CBAlignTextView(Context context) {
         super(context);
-        addLayoutListener();
     }
 
     public CBAlignTextView(Context context, AttributeSet attrs) {
@@ -67,7 +69,6 @@ public class CBAlignTextView extends TextView {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CBAlignTextView);
         isConvert = ta.getBoolean(R.styleable.CBAlignTextView_punctuationConvert, false);
         ta.recycle();
-        addLayoutListener();
 
         //判断使用xml中是用android:text
         TypedArray tsa = context.obtainStyledAttributes(attrs, new int[]{
@@ -143,10 +144,23 @@ public class CBAlignTextView extends TextView {
                 sb.deleteCharAt(position - start);
             }
         }
-        android.content.ClipData clip = android.content.ClipData.newPlainText(null, sb.toString());
-        clipboard.setPrimaryClip(clip);
+        try {
+            android.content.ClipData clip = android.content.ClipData.newPlainText(null, sb.toString());
+            clipboard.setPrimaryClip(clip);
+        }catch (Exception e){
+           Log.e(TAG, e.getMessage());
+        }
     }
 
+    /**
+     * 重置状态
+     */
+    public void reset(){
+        inProcess = false;
+        addCharPosition.clear();
+        newText = "";
+        newText = "";
+    }
 
     /**
      * 处理多行文本
@@ -260,9 +274,6 @@ public class CBAlignTextView extends TextView {
         }
         if (!inProcess && (text != null && !text.equals(newText))) {
             oldText = text;
-            if (!isAddListener) {
-                addLayoutListener();
-            }
             process(false);
             super.setText(newText, type);
         } else {
@@ -299,6 +310,13 @@ public class CBAlignTextView extends TextView {
             }
 
             if (getWidth() == 0) {
+                //没有测量完毕，等待测量完毕后处理
+                post(new Runnable() {
+                    @Override
+                    public void run() {
+                        process(true);
+                    }
+                });
                 return;
             }
 
@@ -321,34 +339,6 @@ public class CBAlignTextView extends TextView {
                 setText(newText);
             }
         }
-    }
-
-    /**
-     * 添加监听器，用于在布局进行改变时重新绘制文本
-     */
-    private void addLayoutListener() {
-        isAddListener = true;
-        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver
-                .OnGlobalLayoutListener() {
-
-
-            @Override
-            public void onGlobalLayout() {
-
-                if (getWidth() == 0) {
-                    return;
-                }
-
-                process(true);
-
-                if (Build.VERSION.SDK_INT >= 16) {
-                    getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                } else {
-                    getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                }
-                isAddListener = false;
-            }
-        });
     }
 
     /**
