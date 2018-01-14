@@ -17,11 +17,11 @@ import me.codeboy.android.aligntextview.example.vh.CBAlignTextViewViewHolder;
  * adapter
  * Created by YD on 10/14/2017.
  */
-public class CBAlignTetViewAdapter extends RecyclerView.Adapter<CBAlignTextViewViewHolder> {
+public class CBAlignTextViewAdapter extends RecyclerView.Adapter<CBAlignTextViewViewHolder> {
     private List<String> mTexts = new ArrayList<>();
     private Context mContext;
 
-    public CBAlignTetViewAdapter(Context context) {
+    public CBAlignTextViewAdapter(Context context) {
         mContext = context;
     }
 
@@ -59,6 +59,7 @@ public class CBAlignTetViewAdapter extends RecyclerView.Adapter<CBAlignTextViewV
         String text = mTexts.get(position);
         if (!TextUtils.isEmpty(text)) {
             holder.cbAlignTextView.setPunctuationConvert(true);
+            holder.cbAlignTextView.reset();
             holder.cbAlignTextView.setText(mTexts.get(position));
         }
     }

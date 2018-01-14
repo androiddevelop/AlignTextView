@@ -10,15 +10,26 @@
         android:theme="@style/AppTheme">
         <activity android:name=".AlignTextViewExample">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity android:name=".AlignTextViewLongTextExample" />
         <activity android:name=".AlignTextViewRecyclerViewExample" />
         <activity android:name=".AlignTextViewNpeExample" />
-        <activity android:name=".CBAlignTextViewRecyclerViewExample" />
+        <activity android:name=".CBAlignTextViewRecyclerViewExample">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity android:name=".TextViewRecyclerViewExample" >
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
 
     </application>
 

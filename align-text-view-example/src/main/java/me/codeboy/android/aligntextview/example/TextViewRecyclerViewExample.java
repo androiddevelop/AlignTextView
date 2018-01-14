@@ -10,14 +10,14 @@ import android.view.WindowManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.codeboy.android.aligntextview.example.adpater.CBAlignTextViewAdapter;
+import me.codeboy.android.aligntextview.example.adpater.TextViewAdapter;
 
 /**
  * AlignTextView例子 recyclerView例子
  *
  * @author yuedong.li
  */
-public class CBAlignTextViewRecyclerViewExample extends Activity {
+public class TextViewRecyclerViewExample extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class CBAlignTextViewRecyclerViewExample extends Activity {
 
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        final CBAlignTextViewAdapter adapter = new CBAlignTextViewAdapter(this);
+        final TextViewAdapter adapter = new TextViewAdapter(this);
         List<String> texts = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             texts.add("欢迎访问codeboy.me，序号:" + i + "欢迎访问codeboy.me，序号:" + i + "欢迎访问codeboy.me，序号:" + i);
